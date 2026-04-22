@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BYRD — Travel Agencies Deep Dive">
+  <meta property="og:description" content="More care. More revenue. Every trip">
+  <meta property="og:image" content="https://byrdtravel.github.io/presentation/byrd_logo.png">
+  <meta property="og:url" content="https://byrdtravel.github.io/presentation/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BYRD — Travel Agencies Deep Dive">
+  <meta name="twitter:description" content="More care. More revenue. Every trip">
+  <meta name="twitter:image" content="https://byrdtravel.github.io/presentation/byrd_logo.png">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -103,7 +112,7 @@ html, body { width:100%; height:100%; background:#0a0f1e; font-family:Arial,sans
       <span class="ck eye">Let's go deeper</span>
       <span class="ck h1">You've seen what BYRD does</span>
       <span class="ck h1 cyan">Now let's talk about<br>what it does for you</span>
-      <span class="ck body" style="margin-top:1.5vh;">One app Your clients The whole trip<br><strong class="white">Here's exactly how it works</strong></span>
+      <span class="ck body" style="margin-top:1.5vh;">One app. Your clients. The whole trip<br><strong class="white">Here's exactly how it works.</strong></span>
     </div>
   </div>
 
@@ -116,7 +125,7 @@ html, body { width:100%; height:100%; background:#0a0f1e; font-family:Arial,sans
         <div class="step ci">
           <div class="step-num">01</div>
           <div class="step-title">Client gets a link</div>
-          <div class="step-desc">Opens as a web app — no download needed Also available on App Store & Google Play</div>
+          <div class="step-desc">Opens as a web app — no download needed. Also available on App Store & Google Play</div>
         </div>
         <div class="step ci">
           <div class="step-num">02</div>
@@ -141,14 +150,14 @@ html, body { width:100%; height:100%; background:#0a0f1e; font-family:Arial,sans
         <div class="fcard-icon">📋</div>
         <div class="fcard-body">
           <div class="fcard-title">Full itinerary</div>
-          <div class="fcard-desc">Every booking, every detail — always in their pocket No PDFs!</div>
+          <div class="fcard-desc">Every booking, every detail — always in their pocket. No PDFs</div>
         </div>
       </div>
       <div class="fcard ci">
         <div class="fcard-icon">✈️</div>
         <div class="fcard-body">
           <div class="fcard-title">Flight watch — real time</div>
-          <div class="fcard-desc">Live flight tracking They know before they need to ask you</div>
+          <div class="fcard-desc">Live flight tracking. They know before they need to ask you</div>
         </div>
       </div>
       <div class="fcard ci">
@@ -162,14 +171,14 @@ html, body { width:100%; height:100%; background:#0a0f1e; font-family:Arial,sans
         <div class="fcard-icon">🔔</div>
         <div class="fcard-body">
           <div class="fcard-title">Push notifications</div>
-          <div class="fcard-desc">Send updates, tips or offers instantly They always hear from you first</div>
+          <div class="fcard-desc">Send updates, tips or offers instantly. They always hear from you first</div>
         </div>
       </div>
       <div class="fcard ci">
         <div class="fcard-icon">➕</div>
         <div class="fcard-body">
           <div class="fcard-title">Upsell & extras</div>
-          <div class="fcard-desc">They book add-ons directly in the app Added to itinerary Revenue comes to you</div>
+          <div class="fcard-desc">They book add-ons directly in the app. Added to itinerary. Revenue comes to you</div>
         </div>
       </div>
     </div>
@@ -195,7 +204,7 @@ html, body { width:100%; height:100%; background:#0a0f1e; font-family:Arial,sans
           </div>
         </div>
       </div>
-      <span class="ck sm" style="margin-top:1.5vh;">No setup fee No long-term commitment Start when you're ready</span>
+      <span class="ck sm" style="margin-top:1.5vh;">No setup fee. No long-term commitment. Start when you're ready</span>
     </div>
   </div>
 
@@ -275,7 +284,12 @@ document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.
 let tx=0,ty=0;
 document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>40){if(dy<0)advance();else goBack();}else if(Math.abs(dx)>40){if(dx<0)advance();else goBack();}},{passive:true});
-prog[0]++;reveal(0,0);updateUI();
+// Reveal ALL chunks in scene 0 immediately
+allSteps[0].forEach((el, i) => {
+  setTimeout(() => el.classList.add('in'), 100 + i * 200);
+});
+prog[0] = allSteps[0].length - 1;
+updateUI();
 </script>
 </body>
 </html>
