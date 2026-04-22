@@ -285,11 +285,7 @@ let tx=0,ty=0;
 document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>40){if(dy<0)advance();else goBack();}else if(Math.abs(dx)>40){if(dx<0)advance();else goBack();}},{passive:true});
 // Reveal ALL chunks in scene 0 immediately
-allSteps[0].forEach((el, i) => {
-  setTimeout(() => el.classList.add('in'), 100 + i * 200);
-});
-prog[0] = allSteps[0].length - 1;
-updateUI();
+prog[0]++;reveal(0,0);updateUI();
 </script>
 </body>
 </html>
