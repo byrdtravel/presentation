@@ -284,7 +284,7 @@ document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx
 prog[0]++;reveal(0,0);updateUI();
 
 
-const DELAY=2000; let timer=null,playing=true;
+const DELAY=3500; let timer=null,playing=true;
 const playBtn=document.getElementById('playbtn');
 function startTimer(){ clearTimeout(timer); timer=setTimeout(()=>{ const steps=allSteps[cur],p=prog[cur]; if(p<steps.length-1||cur<total-1){advance();if(playing)startTimer();} else{timer=setTimeout(()=>{scenes[cur].classList.remove('active');allSteps[cur].forEach(el=>el.classList.remove('in'));prog[cur]=-1;cur=0;reset(0);scenes[0].classList.add('active');prog[0]++;reveal(0,0);updateUI();if(playing)startTimer();},3000);}},DELAY); }
 function togglePlay(){playing=!playing;playBtn.textContent=playing?'⏸':'▶';if(playing)startTimer();else clearTimeout(timer);}
