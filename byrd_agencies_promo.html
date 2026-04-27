@@ -168,7 +168,19 @@ document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx
 prog[0]++;reveal(0,0);updateUI();
 const DELAY=2500;let timer=null,playing=true;
 const playBtn=document.getElementById('playbtn');
-function startTimer(){clearTimeout(timer);timer=setTimeout(()=>{const steps=allSteps[cur],p=prog[cur];if(p<steps.length-1||cur<total-1){advance();if(playing)startTimer();}else{timer=setTimeout(()=>{scenes[cur].classList.remove('active');allSteps[cur].forEach(el=>el.classList.remove('in'));prog[cur]=-1;cur=0;reset(0);scenes[0].classList.add('active');prog[0]++;reveal(0,0);updateUI();if(playing)startTimer();},3000);}},DELAY);}
+function startTimer(){clearTimeout(timer);timer=setTimeout(()=>{const steps=allSteps[cur],p=prog[cur];if(p<steps.length-1||cur<total-1){advance();if(playing)startTimer();}else{timer=setTimeout(()=>{
+    // Stop music at the end
+    audio.pause();
+    audio.currentTime=0;
+    musicBtn.textContent='🔇';
+    musicOn=false;
+    scenes[cur].classList.remove('active');
+    allSteps[cur].forEach(el=>el.classList.remove('in'));
+    prog[cur]=-1;cur=0;reset(0);
+    scenes[0].classList.add('active');
+    prog[0]++;reveal(0,0);updateUI();
+    if(playing)startTimer();
+  },3000);}},DELAY);}
 function togglePlay(){playing=!playing;playBtn.textContent=playing?'⏸':'▶';if(playing)startTimer();else clearTimeout(timer);}
 playBtn.onclick=togglePlay;
 startTimer();
@@ -176,7 +188,28 @@ const audio=document.getElementById('bgmusic');
 const musicBtn=document.getElementById('musicbtn');
 let musicOn=false;
 audio.volume=0.35;
-musicBtn.onclick=function(){if(musicOn){audio.pause();musicBtn.textContent='🔇';musicOn=false;}else{audio.play().then(()=>{musicBtn.textContent='🔊';musicOn=true;}).catch(()=>{});}};
+
+// Auto-start music on first interaction
+function startMusic(){
+  if(!musicOn){
+    audio.play().then(()=>{
+      musicBtn.textContent='🔊';
+      musicOn=true;
+    }).catch(()=>{});
+  }
+  document.removeEventListener('click', startMusic);
+  document.removeEventListener('touchstart', startMusic);
+}
+document.addEventListener('click', startMusic, {once:true});
+document.addEventListener('touchstart', startMusic, {once:true});
+
+musicBtn.onclick=function(){
+  if(musicOn){audio.pause();musicBtn.textContent='🔇';musicOn=false;}
+  else{audio.play().then(()=>{musicBtn.textContent='🔊';musicOn=true;}).catch(()=>{});}
+};
+
+// Stop music when presentation ends
+const origStartTimer = startTimer;
 </script>
 </body>
 </html>
